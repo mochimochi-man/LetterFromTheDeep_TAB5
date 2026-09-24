@@ -1,6 +1,8 @@
 # Arduino / arduino-cli build output
 build/
 *.bin
+# The M5Burner image is the one binary that is handed out.
+!firmware/*.bin
 *.elf
 *.map
 
