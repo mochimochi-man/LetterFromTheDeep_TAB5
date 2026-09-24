@@ -1,0 +1,60 @@
+同梱フォントの出典とライセンス
+
+
+本体に埋め込まれている文字は、下記の書体から描画済みのビットマップ／濃度マップ
+としてヘッダに焼き込んである。ライセンス全文は同じフォルダの OFL.txt /
+OFL-Terminus.txt。
+
+
+■ 海域名・タイトル用
+
+Noto Serif CJK JP Black（極太明朝体）
+公式配布： https://github.com/notofonts/noto-cjk/tree/main/Serif
+著作権： Copyright 2017-2024 Adobe (http://www.adobe.com/)
+         Noto は Google Inc. の商標
+ライセンス： SIL Open Font License 1.1（全文 OFL.txt）
+予約フォント名： なし（Noto CJK の配布物には設定されていない）
+
+元のフォントファイルは変更していない。必要な6タイトルだけを描画した
+マスク画像として埋め込んでいる。これは文書へ文字を埋め込むのと同じで、
+描画結果はフォントそのものではないため OFL の対象にはならない。
+ファイル本体は容量が大きいため同梱していない。
+埋め込み先： title_data.h、zone_title_data.h
+
+
+■ HUD用（この版で使っているもの）
+
+Noto Sans Mono（可変フォント、Weight 500 / Width 100 で使用）
+公式配布： https://github.com/google/fonts/tree/main/ofl/notosansmono
+著作権： Copyright 2022 The Noto Project Authors
+ライセンス： SIL Open Font License 1.1（全文 OFL.txt）
+予約フォント名： なし
+
+ASCII 32〜126 の95字を、23px で描画したときの濃度（1画素1バイト、0〜255）
+として 14x26 のセルに焼いている。23px を選んだのは、この大きさでちょうど
+送りが 14px・キャップ高が 17px になり、インターフェースが元から使っている
+桁送りと一致するため。
+
+字形一式を変換したものなので OFL でいう Modified Version にあたる。
+したがって hud_font_aa.h は本体の Apache License 2.0 ではなく
+SIL Open Font License 1.1 のまま扱う。予約フォント名は設定されていない。
+フォント単体では販売せず、本プログラムの一部としてのみ配布する。
+ヘッダを焼き直すとき以外は不要だが、再現できるように同梱してある。
+埋め込み先： hud_font_aa.h
+
+
+■ HUD用（320x240で描く構成のときだけ使うもの）
+
+Terminus Font 6x12 ボールド（ter-u12b.bdf）
+公式配布： https://sourceforge.net/projects/terminus-font/
+ライセンス： SIL Open Font License 1.1（全文 OFL-Terminus.txt）
+予約フォント名： "Terminus Font"
+
+ASCII 32〜126 の95字を 8x12 セルのビットに変換して埋め込んでいる。
+こちらも Modified Version にあたるため、hud_font.h だけは
+SIL Open Font License 1.1 のまま扱う。OFL の条件は次のとおり満たしている。
+  ・OFL 全文を同梱している（OFL-Terminus.txt）
+  ・予約名 "Terminus Font" を派生物の名前に使っていない
+  ・フォント単体では販売せず、本プログラムの一部としてのみ配布する
+BDF本体は同梱していない。
+埋め込み先： hud_font.h

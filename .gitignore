@@ -1,0 +1,28 @@
+# Arduino / arduino-cli build output
+build/
+*.bin
+*.elf
+*.map
+
+# Working material, kept beside the project but not part of what is handed out. The type
+# and the scan the baked artwork is drawn from; the tools that bake it and the ones that
+# check the world; the reference renders those produce; the design notes behind each
+# creature and each part of the map. None of it is needed to build or to run the program,
+# and the fonts by themselves are twenty-four megabytes.
+/tools/*
+!/tools/build.ps1
+/previews/
+/assets/IMG_5164.png
+/assets/fonts/*
+!/assets/fonts/FONTS.txt
+!/assets/fonts/OFL.txt
+!/assets/fonts/OFL-Terminus.txt
+/*.md
+!/README.md
+!/README.en.md
+!/README.jp.md
+/OPERATION.txt
+
+# arduino-cli.yaml is shipped with placeholder paths, because they are one machine's.
+# This is the real one, and it is what tools/build.ps1 uses when it is here.
+/arduino-cli.local.yaml
