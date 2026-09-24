@@ -4,7 +4,7 @@
 
 Copyright 2026 mochimochi-man / うっ ([X: @calorie0](https://x.com/calorie0))
 
-ESP32-S3 と 320x240 の ST7789 パネルで動く海洋探索アドベンチャーゲームっぽいけどゲームではない何かです。
+M5Stack TAB5 で動く海洋探索アドベンチャーゲームっぽいけどゲームではない何かです。
 
 ## ストーリー
 
@@ -42,25 +42,8 @@ ESP32-S3 と 320x240 の ST7789 パネルで動く海洋探索アドベンチャ
 
 ## 必要なもの
 
-- ESP32-S3 N16R8（フラッシュ16MB / PSRAM 8MB OPI）
-- ST7789 SPI液晶 320x240
-- USBゲームパッド **または** USBキーボード（USBホスト側に接続）
-
-## ピン配置
-
-ST7789（SPI 80MHz）
-
-| 液晶 | ESP32-S3 |
-|---|---|
-| SCLK | GPIO12 |
-| MOSI | GPIO11 |
-| DC | GPIO9 |
-| CS | GPIO10 |
-| MISO | 未使用 |
-| RST | 3.3V直結。GPIOに配線する場合は `lgfx_setup.h` の `PIN_TFT_RST` を変更 |
-| BLK | 3.3V直結。GPIOで制御する場合は `lgfx_setup.h` の `PIN_TFT_BLK` を変更 |
-| VCC | 3.3V |
-| GND | GND |
+- M5Stack Tab5
+- USBゲームパッド または USBキーボード（任意。無くてもタッチパネルで操作できます）
 
 ## 書き込み設定
 
@@ -68,13 +51,15 @@ Arduino IDE
 
 | 項目 | 設定値 |
 |---|---|
-| ボード | ESP32S3 Dev Module |
-| Flash Size | 16MB |
-| PSRAM | OPI PSRAM |
+| ボード | M5Tab5 |
+| Chip Variant | Before v3.00（チップが v3.00 以降なら変更） |
+| PSRAM | Enabled |
 | Partition Scheme | Custom（同梱の `partitions.csv` を使用） |
-| CPU Frequency | 240MHz |
-| CDC On Boot | Disabled |
+| CPU Frequency | 360MHz |
+| Flash Mode | QIO |
+| USB CDC On Boot | Enabled |
 | USB Mode | Hardware CDC and JTAG |
+| Upload Mode | UART0 / Hardware CDC |
 
 WindowsではPowerShellを使って `tools/build.ps1` でビルドできます。
 
@@ -89,7 +74,7 @@ powershell -ExecutionPolicy Bypass -File tools\build.ps1 -Upload -Port COMxx
 ```
 
 - ※イメージが大きく arduino-cli の書き込みが途中で止まるため、esptool を直接呼んでいます。
-- ※ライブラリ **LovyanGFX** をインストールしてください。
+- ※ライブラリ **M5Unified**（M5GFX を含む）をインストールしてください。
 - ※`arduino-cli.yaml` の `directories` は環境ごとに書き換えてください。
 
 ## 操作方法
@@ -112,7 +97,7 @@ USBに何も接続されていない場合、タッチパネル操作モード�
 | 右スティック | 左右を向く・上下を見る |
 | ボタン5 / ボタン6 | 浮上 / 潜降 |
 | ボタン1（A） | 押している間だけ増速。メニューでは決定 |
-| ボタン2（B） | メニューでは取り消し。都市でパネルを開いている間は帰還 |
+| ボタン2（B） | メニューでは取り消し |
 | ボタン10（Start） | 拡大マップ → モニュメント一覧 → 生物一覧 → 通常表示 |
 
 LogicoolのF310にあわせています。
@@ -128,7 +113,7 @@ LogicoolのF310にあわせています。
 | I / K | 上 / 下を見る |
 | Q / E | 浮上 / 潜降 |
 | スペース | 押している間だけ増速。メニューでは決定 |
-| Esc（BackSpace でも同じ） | メニューでは取り消し。都市でパネルを開いている間は帰還 |
+| Esc（BackSpace でも同じ） | メニューでは取り消し |
 | Enter（Tab でも同じ） | 拡大マップ → モニュメント一覧 → 生物一覧 → 通常表示 |
 
 ### シリアル（115200bps・デバッグ用）

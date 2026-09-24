@@ -5,7 +5,7 @@
 Copyright 2026 mochimochi-man / Uh ([X: @calorie0](https://x.com/calorie0))
 
 An ocean-exploration adventure game — or something that is not quite a game — running
-on the ESP32-S3 and a 320x240 ST7789 panel.
+on the M5Stack Tab5.
 
 ## Story
 
@@ -45,25 +45,8 @@ on the ESP32-S3 and a 320x240 ST7789 panel.
 
 ## What you need
 
-- ESP32-S3 N16R8 (16MB flash / 8MB OPI PSRAM)
-- ST7789 SPI panel, 320x240
-- A USB gamepad **or** a USB keyboard, on the USB host side
-
-## Wiring
-
-ST7789 (SPI, 80MHz)
-
-| Panel | ESP32-S3 |
-|---|---|
-| SCLK | GPIO12 |
-| MOSI | GPIO11 |
-| DC | GPIO9 |
-| CS | GPIO10 |
-| MISO | not used |
-| RST | tied to 3.3V. To drive it from a GPIO, change `PIN_TFT_RST` in `lgfx_setup.h` |
-| BLK | tied to 3.3V. To drive it from a GPIO, change `PIN_TFT_BLK` in `lgfx_setup.h` |
-| VCC | 3.3V |
-| GND | GND |
+- M5Stack Tab5
+- A USB gamepad or a USB keyboard (optional: without one, it is played on the touch panel)
 
 ## Build settings
 
@@ -71,13 +54,15 @@ Arduino IDE:
 
 | Setting | Value |
 |---|---|
-| Board | ESP32S3 Dev Module |
-| Flash Size | 16MB |
-| PSRAM | OPI PSRAM |
+| Board | M5Tab5 |
+| Chip Variant | Before v3.00 (change it if your chip is v3.00 or later) |
+| PSRAM | Enabled |
 | Partition Scheme | Custom (uses the bundled `partitions.csv`) |
-| CPU Frequency | 240MHz |
-| CDC On Boot | Disabled |
+| CPU Frequency | 360MHz |
+| Flash Mode | QIO |
+| USB CDC On Boot | Enabled |
 | USB Mode | Hardware CDC and JTAG |
+| Upload Mode | UART0 / Hardware CDC |
 
 On Windows you can build from PowerShell with `tools/build.ps1`:
 
@@ -93,7 +78,7 @@ powershell -ExecutionPolicy Bypass -File tools\build.ps1 -Upload -Port COMxx
 
 - The image is large enough that arduino-cli's own upload gives up part way through,
   so esptool is called directly.
-- Install the **LovyanGFX** library.
+- Install the **M5Unified** library (it brings M5GFX with it).
 - Rewrite the `directories` entries in `arduino-cli.yaml` for your own machine.
 
 ## Controls
@@ -116,7 +101,7 @@ With nothing plugged into the USB port, it runs on the touch panel.
 | Right stick | Turn left and right, look up and down |
 | Button 5 / Button 6 | Rise / dive |
 | Button 1 (A) | Hold for speed. Confirm, in menus |
-| Button 2 (B) | Cancel, in menus. In the city, returns while a panel is open |
+| Button 2 (B) | Cancel, in menus |
 | Button 10 (Start) | Expanded map → monuments → life → normal view |
 
 Laid out for the Logicool F310. Numbering differs between makes, so adjust to the pad
@@ -132,7 +117,7 @@ you own.
 | I / K | Look up / down |
 | Q / E | Rise / dive |
 | Space | Hold for speed. Confirm, in menus |
-| Esc (or Backspace) | Cancel, in menus. In the city, returns while a panel is open |
+| Esc (or Backspace) | Cancel, in menus |
 | Enter (or Tab) | Expanded map → monuments → life → normal view |
 
 ### Serial (115200bps, for debugging)
